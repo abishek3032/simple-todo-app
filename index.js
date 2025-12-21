@@ -11,6 +11,6 @@ app.use(express.json())
 app.use("/todo", todoRouter)
 
 app.listen(process.env.PORT, () => {
-    console.log(chalk.red(`http://localhost:${process.env.PORT}`))
+    console.log(chalk.blue(`http://localhost:${process.env.PORT}`))
 }
 ) 
