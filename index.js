@@ -10,7 +10,8 @@ dotenv.config({ quiet: true })
 app.use(express.json())
 app.use("/todo", todoRouter)
 
+
 app.listen(process.env.PORT, () => {
-    console.log(chalk.green(`http://localhost:${process.env.PORT}`))
+    console.log(chalk.yellow(`http://localhost:${process.env.PORT}`))
 }
 ) 
