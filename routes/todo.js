@@ -30,7 +30,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id
-    todos = todos.filter((t) => t.id != id)
+    todos = todos.filter((t) => t.id !== id)
     res.send(todos)
 })
 

@@ -22,6 +22,7 @@ app.use(morgan("tiny"))
 //     next()
 // })
 
+// ROUTE MIDDLEWARES
 app.use("/todo", todoRouter)
 
 app.listen(process.env.PORT, () => {
