@@ -1,5 +1,5 @@
 // IMPORTS
-import express, {urlencoded} from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import chalk from 'chalk'
 import morgan from 'morgan'
@@ -12,7 +12,7 @@ import { todoRouter } from './routes/todo.js'
 // CONFIGS
 const app = express()
 dotenv.config({ quiet: true })
-mongoose.connect(process.env.MONGO_URL).then(()=>console.log("DATABASE CONNECTED!")).catch((err)=>console.log(err))
+mongoose.connect(process.env.MONGO_URL).then(()=>console.log("DB CONNECTED")).catch((err)=>console.log(err))
 
 // MIDDLEWARES
 app.use(helmet())
