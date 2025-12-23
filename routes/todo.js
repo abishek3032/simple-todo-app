@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 const router = express.Router()
 
-// new
 const todoSchema = new mongoose.Schema({
     todo:{type:String, required:true},
 },{timestamps:true})
@@ -15,27 +14,39 @@ router.get('/', async (req, res) => {
     res.status(200).send(todos)
 })
 
-// router.post('/', (req, res) => {
-//     let randId = Math.round(Math.random() * 1000)
-//     const { todo } = req.body
-//     todos = [...todos, { id: randId, todo: todo }]
-//     res.status(201).json(todos)
-// })
-//
-// router.put('/:id', (req, res) => {
-//     const id = parseInt(req.params.id);
-//     const { todo } = req.body;
-//     const founded = todos.find(t => t.id === id);
-//
-//     if (founded) {
-//         founded.todo = todo;
-//         res.status(200).json(todos);
-//     } else {
-//         res.status(404);
-//     }
-// });
-//
-//
+router.get('/:id', async (req,res)=>{
+    const id = req.params.id
+    const todos = await Todo.findById(id,undefined,undefined).select("_id todo createdAt updatedAt")
+    res.status(200).send(todos)
+})
+
+router.post('/', async (req, res) => {
+    const { todo } = req.body
+    try {
+        const newTodo = new Todo({ todo:todo })
+        await newTodo.save()
+        return res.status(201).send({ response: "created" })
+    } catch (e) {
+        console.error(e)
+        return res.status(400).send({ error: e.message })
+    }
+})
+
+
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const { todo } = req.body;
+
+    try{
+        const updatedTodo = await  Todo.findByIdAndUpdate({_id:id},{todo:todo},{new:true})
+        return res.status(200).send({updatedTodo})
+    }catch (e) {
+        console.error(e)
+        return res.status(400).send({error:e.message})
+    }
+});
+
+
 router.delete ('/:id', async (req, res) => {
     const id = req.params.id
     const todo = await Todo.findByIdAndDelete(id,undefined)
